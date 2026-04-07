@@ -28,7 +28,7 @@
       --r-btn:       100px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       font-family: 'Raleway', Arial, sans-serif;
@@ -514,12 +514,28 @@
     }
 
     @media (max-width: 640px) {
-      .hdr .btn { display: none; }
-      .mob-bar  { display: block; }
-      body      { padding-bottom: 80px; }
-      .hdr      { padding: 0 20px; }
-      .hero     { padding-top: calc(var(--hdr-h) + 36px); }
-      .res-pill { padding: 16px 28px; font-size: 15px; }
+      .hdr .btn        { display: none; }
+      .mob-bar         { display: block; }
+      body             { padding-bottom: 80px; overflow-x: hidden; }
+      .hdr             { padding: 0 20px; }
+      .hero            { padding-top: calc(var(--hdr-h) + 36px); padding-left: 16px; padding-right: 16px; }
+      .res-pill        { padding: 16px 28px; font-size: 15px; }
+      .hero-card       { padding: 24px 18px 20px; border-radius: 16px; }
+      .form-rgt        { padding: 28px 18px 24px; }
+      .form-sec        { padding: 60px 16px; }
+      .btn-lg          { padding: 15px 20px; font-size: 14px; }
+      .f-verify        { flex-wrap: wrap; gap: 8px; }
+      .f-verify span   { white-space: normal; font-size: 13px; }
+      .f-verify .fi    { width: 80px; }
+      .hcard-title     { font-size: 17px; }
+      .frow            { grid-template-columns: 1fr; }
+      .hero-proof      { flex-wrap: wrap; gap: 10px; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-card  { padding: 20px 14px 18px; }
+      .form-rgt   { padding: 24px 14px 20px; }
+      .btn-lg     { font-size: 13px; padding: 13px 16px; }
     }
   </style>
 </head>
