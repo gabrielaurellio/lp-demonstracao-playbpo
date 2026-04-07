@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Organize e escale sua operação de BPO Financeiro. Agende uma demonstração gratuita com a PlayBPO.">
+  <title>Demonstração Gratuita | PlayBPO – O Melhor Gestor para BPO Financeiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* === RESET & TOKENS === */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange:      #ff7701;
+      --orange-h:    #e06600;
+      --blue-dark:   #0048b7;
+      --blue-mid:    #008ffa;
+      --blue-navy:   #24344c;
+      --bg-light:    #ebf2f7;
+      --white:       #ffffff;
+      --text:        #1a1a2e;
+      --text-muted:  #5a6378;
+      --border:      #dde3ee;
+      --hdr-h:       68px;
+      --r-card:      16px;
+      --r-btn:       100px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ========================================
+       BUTTONS
+    ======================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: var(--r-btn);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn-primary          { background: var(--orange); color: #fff; }
+    .btn-primary:hover    { background: var(--orange-h); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(255,119,1,.38); }
+    .btn-lg               { padding: 17px 44px; font-size: 16px; }
+    .btn-full             { width: 100%; }
+    .btn-primary:active   { transform: translateY(0); }
+
+    /* ========================================
+       STICKY HEADER
+    ======================================== */
+    .hdr {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--hdr-h);
+      z-index: 900;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      padding: 0 36px;
+      justify-content: space-between;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .hdr.scrolled {
+      border-color: var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,.10);
+    }
+    .hdr-logo {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--blue-dark);
+      letter-spacing: -.5px;
+    }
+    .hdr-logo em { font-style: normal; color: var(--orange); }
+
+    /* ========================================
+       HERO
+    ======================================== */
+    .hero {
+      background: linear-gradient(135deg, #003da0 0%, var(--blue-mid) 100%);
+      padding: calc(var(--hdr-h) + 60px) 24px 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%; right: -15%;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(255,255,255,.07) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 60px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Left column */
+    .hero-h1 {
+      font-size: clamp(30px, 3.8vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.13;
+      margin-bottom: 20px;
+    }
+    .hero-h1 em { font-style: normal; color: var(--orange); }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: rgba(255,255,255,.82);
+      margin-bottom: 28px;
+      line-height: 1.72;
+      max-width: 510px;
+    }
+    .hero-hint {
+      font-size: 14px;
+      color: rgba(255,255,255,.62);
+      margin-bottom: 18px;
+    }
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 38px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,.18);
+    }
+    .proof-num  { font-size: 40px; font-weight: 900; color: var(--orange); line-height: 1; }
+    .proof-txt  { font-size: 14px; color: rgba(255,255,255,.72); line-height: 1.45; }
+
+    /* Right — form card */
+    .hero-card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 36px 32px 32px;
+      box-shadow: 0 28px 80px rgba(0,0,0,.22), 0 4px 16px rgba(0,0,0,.12);
+    }
+    .hcard-title { font-size: 19px; font-weight: 800; color: var(--blue-dark); text-align: center; margin-bottom: 4px; }
+    .hcard-sub   { font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 22px; }
+
+    /* ========================================
+       FORM ELEMENTS (shared)
+    ======================================== */
+    .fg     { margin-bottom: 12px; }
+    .frow   { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fi, .fs {
+      width: 100%;
+      height: 46px;
+      padding: 0 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: #f5f8ff;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .fi:focus, .fs:focus {
+      outline: none;
+      border-color: var(--blue-mid);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0,143,250,.12);
+    }
+    .fi::placeholder { color: #b0bac8; }
+    .fs {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230048b7' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-color: #f5f8ff;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+    .f-verify { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .f-verify span { font-size: 14px; color: var(--text-muted); white-space: nowrap; }
+    .f-verify .fi  { width: 72px; flex-shrink: 0; text-align: center; }
+    .f-privacy { font-size: 11px; color: #9aa; text-align: center; margin: 10px 0 14px; line-height: 1.5; }
+    .f-privacy a { color: var(--blue-dark); text-decoration: underline; }
+
+    /* ========================================
+       LOGOS BAR
+    ======================================== */
+    .logos-bar {
+      background: #fff;
+      padding: 36px 24px;
+      border-bottom: 1px solid #eef1f8;
+    }
+    .logos-label {
+      text-align: center;
+      font-size: 14px;
+      color: #8891a0;
+      font-weight: 600;
+      letter-spacing: .5px;
+      margin-bottom: 22px;
+    }
+    .logos-label strong { color: var(--blue-dark); font-size: 22px; }
+    .logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 18px 44px;
+      max-width: 1000px;
+      margin: 0 auto;
+      opacity: .5;
+      filter: grayscale(1);
+    }
+    .logo-ph { height: 28px; background: #c0ccdf; border-radius: 4px; }
+
+    /* ========================================
+       PROBLEMS
+    ======================================== */
+    .problems {
+      background: var(--blue-dark);
+      padding: 84px 24px;
+      text-align: center;
+    }
+    .sec-title { font-size: clamp(24px, 3vw, 38px); font-weight: 900; line-height: 1.2; }
+    .sec-sub   { font-size: 17px; line-height: 1.65; margin: 14px auto 0; max-width: 560px; }
+
+    .problems .sec-title,
+    .problems .sec-sub { color: #fff; }
+    .problems .sec-sub { opacity: .82; }
+
+    .prob-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 50px auto 42px;
+    }
+    .p-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: var(--r-card);
+      padding: 30px 26px;
+      text-align: left;
+      transition: background .2s, transform .25s;
+    }
+    .p-card:hover { background: rgba(255,255,255,.12); transform: translateY(-5px); }
+    .p-icon  { font-size: 40px; margin-bottom: 14px; }
+    .p-title { font-size: 18px; font-weight: 800; color: var(--orange); margin-bottom: 10px; }
+    .p-text  { font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.68; }
+
+    .res-pill {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      padding: 18px 52px;
+      border-radius: var(--r-btn);
+      box-shadow: 0 8px 28px rgba(255,119,1,.35);
+    }
+
+    /* ========================================
+       VIDEO
+    ======================================== */
+    .video-sec {
+      background: linear-gradient(160deg, var(--blue-mid) 0%, #005fc5 100%);
+      padding: 84px 24px;
+      text-align: center;
+    }
+    .video-sec .sec-title,
+    .video-sec .sec-sub { color: #fff; }
+    .video-sec .sec-sub { opacity: .82; }
+
+    .video-wrap {
+      max-width: 820px;
+      margin: 48px auto 0;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.3);
+      aspect-ratio: 16/9;
+      background: rgba(0,0,0,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-placeholder {
+      color: rgba(255,255,255,.4);
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .video-placeholder span { font-size: 48px; }
+
+    /* ========================================
+       HOW IT WORKS
+    ======================================== */
+    .hiw {
+      background: var(--blue-navy);
+      padding: 84px 24px;
+      text-align: center;
+    }
+    .hiw .sec-title,
+    .hiw .sec-sub { color: #fff; }
+    .hiw .sec-sub { opacity: .78; }
+
+    .hiw-steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 860px;
+      margin: 56px auto 56px;
+      position: relative;
+    }
+    .hiw-steps::before {
+      content: '';
+      position: absolute;
+      top: 38px;
+      left: calc(16.66% + 38px);
+      right: calc(16.66% + 38px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), rgba(255,119,1,.25));
+    }
+    .hiw-step     { flex: 1; text-align: center; padding: 0 18px; }
+    .hiw-num {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 10px 26px rgba(255,119,1,.42);
+    }
+    .hiw-step p { font-size: 15px; color: rgba(255,255,255,.8); line-height: 1.62; }
+
+    /* ========================================
+       TESTIMONIALS
+    ======================================== */
+    .testimonials {
+      background: var(--bg-light);
+      padding: 84px 24px;
+    }
+    .testimonials .sec-title { color: var(--blue-dark); text-align: center; margin-bottom: 52px; }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .test-card {
+      background: #fff;
+      border-radius: var(--r-card);
+      padding: 30px 26px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
+      display: flex;
+      flex-direction: column;
+      border-top: 4px solid var(--orange);
+    }
+    .test-stars  { color: var(--orange); font-size: 18px; margin-bottom: 16px; letter-spacing: 2px; }
+    .test-quote  { font-size: 15px; color: var(--text-muted); line-height: 1.72; font-style: italic; flex: 1; margin-bottom: 24px; }
+    .test-author { display: flex; align-items: center; gap: 12px; }
+    .test-av {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .test-name { font-weight: 700; font-size: 15px; }
+    .test-co   { font-size: 12px; color: #99a3b3; text-transform: uppercase; letter-spacing: .5px; }
+
+    .test-cta { text-align: center; margin-top: 52px; }
+
+    /* ========================================
+       BOTTOM FORM
+    ======================================== */
+    .form-sec {
+      background: #fff;
+      padding: 84px 24px;
+    }
+    .form-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 68px;
+      align-items: start;
+    }
+    .form-lft h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 900;
+      color: var(--blue-dark);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .form-lft p { font-size: 16px; color: var(--text-muted); line-height: 1.72; margin-bottom: 28px; }
+    .benefits    { list-style: none; }
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+    .benefits li::before { content: '✅'; flex-shrink: 0; }
+
+    .form-rgt {
+      background: #fff;
+      border: 2px solid var(--blue-dark);
+      border-radius: 20px;
+      padding: 38px 36px;
+    }
+    .form-rgt h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--blue-dark);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* ========================================
+       FOOTER
+    ======================================== */
+    footer {
+      background: var(--blue-mid);
+      color: rgba(255,255,255,.82);
+      text-align: center;
+      padding: 22px 24px;
+      font-size: 13px;
+    }
+    footer a { color: rgba(255,255,255,.7); text-decoration: underline; margin-right: 16px; }
+
+    /* ========================================
+       MOBILE STICKY BAR
+    ======================================== */
+    .mob-bar {
+      display: none;
+      position: fixed;
+      inset: auto 0 0 0;
+      z-index: 800;
+      background: var(--blue-navy);
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      box-shadow: 0 -4px 24px rgba(0,0,0,.22);
+    }
+    .mob-bar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 15px;
+      text-transform: uppercase;
+      transition: background .2s;
+    }
+    .mob-bar a:active { background: var(--orange-h); }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 920px) {
+      .hero-inner        { grid-template-columns: 1fr; gap: 44px; }
+      .hero-card         { max-width: 500px; margin: 0 auto; width: 100%; }
+      .hero-h1           { font-size: clamp(26px, 5vw, 40px); }
+      .prob-grid         { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
+      .test-grid         { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
+      .form-inner        { grid-template-columns: 1fr; }
+      .hiw-steps         { flex-direction: column; align-items: center; gap: 32px; }
+      .hiw-steps::before { display: none; }
+      .hiw-step          { width: 100%; max-width: 320px; }
+      .frow              { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .hdr .btn { display: none; }
+      .mob-bar  { display: block; }
+      body      { padding-bottom: 80px; }
+      .hdr      { padding: 0 20px; }
+      .hero     { padding-top: calc(var(--hdr-h) + 36px); }
+      .res-pill { padding: 16px 28px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY HEADER
+============================================================ -->
+<header class="hdr" id="hdr">
+  <div class="hdr-logo">Play<em>BPO</em></div>
+  <a href="#form" class="btn btn-primary">Agendar Demonstração Gratuita</a>
+</header>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <!-- Left -->
+    <div>
+      <h1 class="hero-h1">
+        Organize e escale a sua operação de
+        <em>BPO Financeiro</em>
+      </h1>
+      <p class="hero-sub">
+        A plataforma certa para BPOs Financeiros que querem mais controle,
+        padronização, eficiência e gestão dos clientes.
+      </p>
+      <p class="hero-hint">Solicite uma demonstração gratuita e veja na prática. 👇</p>
+      <a href="#form" class="btn btn-primary btn-lg">AGENDAR DEMONSTRAÇÃO GRATUITA</a>
+
+      <div class="hero-proof">
+        <div class="proof-num">25 mil+</div>
+        <div class="proof-txt">empresas já<br>confiam na PlayBPO</div>
+      </div>
+    </div>
+
+    <!-- Right — form card -->
+    <div class="hero-card">
+      <h3 class="hcard-title">🎯 Demonstração 100% Gratuita</h3>
+      <p class="hcard-sub">Preencha e fale com um especialista ainda hoje</p>
+
+      <form action="#" method="post" id="hero-form">
+        <div class="frow">
+          <div class="fg"><input class="fi" type="text"  name="nome"     placeholder="Seu nome *"    required></div>
+          <div class="fg"><input class="fi" type="email" name="email"    placeholder="E-mail *"       required></div>
+        </div>
+        <div class="fg"><input class="fi" type="tel" name="telefone" placeholder="Telefone / WhatsApp *" required></div>
+        <div class="fg"><input class="fi" type="text" name="empresa"  placeholder="Nome da empresa *"  required></div>
+        <div class="fg">
+          <select class="fs" name="segmento" required>
+            <option value="" disabled selected>Segmento da sua empresa *</option>
+            <option>Contabilidade com BPO</option>
+            <option>Assistente Financeiro Virtual</option>
+            <option>Consultoria Financeira</option>
+            <option>Empresa de BPO Financeiro</option>
+            <option>Não trabalho no segmento financeiro</option>
+          </select>
+        </div>
+        <div class="fg">
+          <select class="fs" name="clientes" required>
+            <option value="" disabled selected>Quantos clientes BPO você atende? *</option>
+            <option>0 a 5</option>
+            <option>6 a 15</option>
+            <option>16 a 30</option>
+            <option>31 a 50</option>
+            <option>Mais de 50</option>
+          </select>
+        </div>
+        <div class="f-verify">
+          <span>Verificação: 1 + 1 =</span>
+          <input class="fi" type="text" name="verificacao" placeholder="?" required>
+        </div>
+        <p class="f-privacy">
+          Ao preencher, você concorda com nossa
+          <a href="#">Política de Privacidade</a> e <a href="#">Termos de Uso</a>.
+        </p>
+        <button type="submit" class="btn btn-primary btn-lg btn-full">
+          Eu quero uma demonstração!
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     LOGOS BAR
+============================================================ -->
+<section class="logos-bar">
+  <p class="logos-label">
+    Faça como as <strong>25 mil+</strong> empresas que usam a PlayBPO
+  </p>
+  <div class="logos-row">
+    <div class="logo-ph" style="width:120px"></div>
+    <div class="logo-ph" style="width:104px"></div>
+    <div class="logo-ph" style="width:152px"></div>
+    <div class="logo-ph" style="width:96px"></div>
+    <div class="logo-ph" style="width:112px"></div>
+    <div class="logo-ph" style="width:108px"></div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROBLEMS — POR QUE PLAYBPO?
+============================================================ -->
+<section class="problems">
+  <h2 class="sec-title">Por que escolher a PlayBPO?</h2>
+  <p class="sec-sub">
+    A PlayBPO é um gestor de tarefas feito para BPO Financeiro que resolve:
+  </p>
+
+  <div class="prob-grid">
+    <div class="p-card">
+      <div class="p-icon">📉</div>
+      <h4 class="p-title">A falta de organização</h4>
+      <p class="p-text">
+        Sem uma estrutura eficiente, o crescimento da sua operação pode se tornar um caos.
+        A PlayBPO organiza tudo para você crescer com controle.
+      </p>
+    </div>
+    <div class="p-card">
+      <div class="p-icon">💬</div>
+      <h4 class="p-title">Os problemas de comunicação</h4>
+      <p class="p-text">
+        Garantir pontualidade, segurança e controle de dados sensíveis é um grande desafio.
+        Com a PlayBPO, você tem controle total da operação.
+      </p>
+    </div>
+    <div class="p-card">
+      <div class="p-icon">📊</div>
+      <h4 class="p-title">As análises ineficientes</h4>
+      <p class="p-text">
+        Sem métricas claras, sua empresa pode estar perdendo competitividade.
+        A PlayBPO oferece visibilidade completa da sua operação.
+      </p>
+    </div>
+  </div>
+
+  <div class="res-pill">✅ A PlayBPO resolve esses desafios para você!</div>
+</section>
+
+
+<!-- ============================================================
+     VIDEO
+============================================================ -->
+<section class="video-sec">
+  <h2 class="sec-title">Conheça o melhor gestor para BPO Financeiro do Brasil</h2>
+  <p class="sec-sub">Veja na prática como a PlayBPO transforma operações de BPO Financeiro</p>
+
+  <div class="video-wrap">
+    <!--
+      SUBSTITUIR pelo embed do vídeo:
+      <iframe src="https://www.youtube.com/embed/SEU_VIDEO_ID?rel=0" allowfullscreen></iframe>
+    -->
+    <div class="video-placeholder">
+      <span>▶</span>
+      <p>Vídeo de demonstração</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section class="hiw">
+  <h2 class="sec-title">Como funciona?</h2>
+  <p class="sec-sub">
+    Agende agora mesmo e dê o primeiro passo para escalar seu BPO Financeiro.
+  </p>
+
+  <div class="hiw-steps">
+    <div class="hiw-step">
+      <div class="hiw-num">1</div>
+      <p>Agende sua demonstração gratuita com nosso time de especialistas.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">2</div>
+      <p>Conheça todas as funcionalidades em uma reunião ao vivo.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="hiw-num">3</div>
+      <p>Comece a usar a plataforma e veja os resultados na prática!</p>
+    </div>
+  </div>
+
+  <a href="#form" class="btn btn-primary btn-lg">QUERO MINHA DEMONSTRAÇÃO GRATUITA</a>
+</section>
+
+
+<!-- ============================================================
+     TESTIMONIALS
+============================================================ -->
+<section class="testimonials">
+  <h2 class="sec-title">Veja o que nossos clientes dizem:</h2>
+
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">
+        "Antes da PlayBPO, nossa operação era manual... Com a Play, foi uma virada de chave!
+        Resolvemos 90% dos processos e hoje escalamos com controle e segurança."
+      </p>
+      <div class="test-author">
+        <div class="test-av">TV</div>
+        <div>
+          <div class="test-name">Telma Vargas</div>
+          <div class="test-co">ProtecX</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">
+        "Hoje eu não consigo imaginar como funcionaria um negócio de BPO Financeiro
+        sem o gerenciador de tarefas da PlayBPO. É indispensável para qualquer gestor sério."
+      </p>
+      <div class="test-author">
+        <div class="test-av">PA</div>
+        <div>
+          <div class="test-name">Paola Aureliano</div>
+          <div class="test-co">Eleve Gestão Financeira</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">
+        "A PlayBPO transformou nossa operação da água para o vinho, trazendo clareza
+        nas rotinas, mais fluidez e controle total de todos os processos."
+      </p>
+      <div class="test-author">
+        <div class="test-av">DP</div>
+        <div>
+          <div class="test-name">Danilo Pitaluga</div>
+          <div class="test-co">DGN Gestão Financeira</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="test-cta">
+    <a href="#form" class="btn btn-primary btn-lg">AGENDAR MINHA DEMONSTRAÇÃO</a>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BOTTOM FORM (anchor #form)
+============================================================ -->
+<section class="form-sec" id="form">
+  <div class="form-inner">
+
+    <!-- Left — value prop -->
+    <div class="form-lft">
+      <h2>Preencha seus dados e entraremos em contato</h2>
+      <p>
+        Nossa equipe de especialistas vai te mostrar como a PlayBPO pode transformar
+        sua operação de BPO Financeiro. Sem compromisso, 100% gratuito.
+      </p>
+      <ul class="benefits">
+        <li>Demonstração 100% gratuita e sem compromisso</li>
+        <li>Reunião ao vivo com especialista em BPO Financeiro</li>
+        <li>Plataforma adaptada ao seu modelo de negócio</li>
+        <li>Suporte completo durante toda a implementação</li>
+        <li>Veja resultados na prática ainda na primeira semana</li>
+      </ul>
+    </div>
+
+    <!-- Right — form box -->
+    <div class="form-rgt">
+      <h3>Preencha seus dados e entraremos em contato:</h3>
+
+      <form action="#" method="post" id="bottom-form">
+        <div class="fg"><input class="fi" type="text"  name="nome"     placeholder="Nome *"    required></div>
+        <div class="fg"><input class="fi" type="email" name="email"    placeholder="E-mail *"  required></div>
+        <div class="fg"><input class="fi" type="tel"   name="telefone" placeholder="Telefone *" required></div>
+        <div class="fg"><input class="fi" type="text"  name="empresa"  placeholder="Empresa *"  required></div>
+        <div class="fg">
+          <select class="fs" name="segmento" required>
+            <option value="" disabled selected>Qual segmento da sua empresa? *</option>
+            <option>Contabilidade com BPO</option>
+            <option>Assistente Financeiro Virtual</option>
+            <option>Consultoria Financeira</option>
+            <option>Empresa de BPO Financeiro</option>
+            <option>Não trabalho no segmento financeiro</option>
+          </select>
+        </div>
+        <div class="fg">
+          <select class="fs" name="clientes" required>
+            <option value="" disabled selected>Quantos clientes de BPO Financeiro você atende? *</option>
+            <option>0 a 5</option>
+            <option>6 a 15</option>
+            <option>16 a 30</option>
+            <option>31 a 50</option>
+            <option>Mais de 50</option>
+          </select>
+        </div>
+        <div class="f-verify">
+          <span>Verificação: 1 + 1 =</span>
+          <input class="fi" type="text" name="verificacao" placeholder="?" required>
+        </div>
+        <p class="f-privacy">
+          Ao preencher o formulário, você concorda com nossa
+          <a href="#">Política de Privacidade</a> e <a href="#">Termos de Uso</a>.
+        </p>
+        <button type="submit" class="btn btn-primary btn-lg btn-full">
+          Eu quero uma demonstração!
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <a href="#">Termos de uso PlayBPO</a>
+  © Copyright PlayBPO. All Rights Reserved
+</footer>
+
+
+<!-- ============================================================
+     MOBILE STICKY BAR
+============================================================ -->
+<div class="mob-bar" id="mob-bar">
+  <a href="#form">🎯 AGENDAR DEMONSTRAÇÃO GRATUITA</a>
+</div>
+
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+  // Sticky header shadow on scroll
+  const hdr = document.getElementById('hdr');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
